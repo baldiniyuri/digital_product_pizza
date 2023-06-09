@@ -1,0 +1,11 @@
+venv
+
+/data
+app/data
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+app/authentication/migrations
+app/tests
+.env
