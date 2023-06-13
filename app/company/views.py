@@ -45,7 +45,7 @@ class CompanyView(APIView):
 
         serializers = self.serializer_class(company)
 
-        return Response(serializers.data, status=status.HTTP_200_OK)
+        return Response(serializers.data, status=status.HTTP_201_CREATED)
 
 
     def get(self, request):

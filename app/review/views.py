@@ -37,7 +37,7 @@ class ReviewView(APIView):
                 status=status.HTTP_404_NOT_FOUND)
             
         serializer = self.serializer_class(response[1])
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
     def get(self, request):
