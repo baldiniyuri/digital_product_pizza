@@ -74,7 +74,7 @@ class ReviewView(APIView):
 
     def delete(self, request, review_id: int, user_id: int):
         if CORE.check_user_token(request=request, user_id=user_id):
-            review = self.queryset.filter(id=review_id)
+            review = self.queryset.filter(id=review_id, customer_id=user_id)
 
             if review:
                 review.delete()

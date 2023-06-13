@@ -53,8 +53,8 @@ class PizzaView(APIView):
     
 
     def delete(self, request, pizza_id: int, user_id: int):
-        if CORE.check_user_token(request=request, user_id=user_id):
-            pizza = self.queryset.filter(id=pizza_id, user_id=user_id)
+        if CORE.check_user_token(request=request, user_id=user_id) and CORE.check_superuser(user_id=user_id):
+            pizza = self.queryset.filter(id=pizza_id)
 
             if pizza:
                 pizza.delete()

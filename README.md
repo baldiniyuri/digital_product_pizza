@@ -159,8 +159,6 @@ Response Http 204
 ```
 
 
-
-
 ### Order
 
 # Post api/order/
@@ -304,6 +302,16 @@ Response Http 201
 
 ```
 
+# DELETE api/order/<int:order_id>/<int:user_id>/
+```
+Token required
+
+
+Response Http 204
+
+
+```
+
 
 ### Review
 
@@ -361,5 +369,75 @@ Response Http 201
     ]
   }
 }
+
+```
+
+
+# Get api/review/?<param>&<query>&<user_id>
+```
+Json
+
+Token Required
+
+param = "id","customer", "rating" ,"company"
+
+Response Http 200
+
+[
+  {
+    "id": 1,
+    "rating": 5,
+    "review_text": "Pizza is always good.",
+    "timestamp": "2023-06-13T19:34:30.664821Z",
+    "customer": {
+      "id": 1,
+      "name": "John Due",
+      "cpf": "1234567890",
+      "email": "test@testmail.com",
+      "phone": "123456789",
+      "address": {
+        "id": 1,
+        "city": "Taubaté",
+        "state": "SP",
+        "postal_code": "234555",
+        "street_address": "",
+        "additional_instructions": null
+      }
+    },
+    "company": {
+      "id": 1,
+      "name": "Pizza hut",
+      "cnpj": "1234256",
+      "address": {
+        "id": 2,
+        "city": "São Paulo",
+        "state": "SP",
+        "postal_code": "20450100",
+        "street_address": "rua",
+        "additional_instructions": null
+      },
+      "contact_number": "11 50552020",
+      "email": "pizza@hut.com",
+      "description": "Best pizza in the world.",
+      "pizzas": [
+        {
+          "id": 1,
+          "flavor": "calabresa",
+          "second_flavor": null,
+          "is_two_flavors": false
+        }
+      ]
+    }
+  }
+]
+```
+
+# DELETE api/review/<int:review_id>/<int:user_id>/
+```
+Token required
+
+
+Response Http 204
+
 
 ```
