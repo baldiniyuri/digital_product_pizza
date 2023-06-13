@@ -1,6 +1,7 @@
 from review.models import Review
-from review.serializers import ReviewSerializers
+from review.serializers import ReviewSerializers, ReviewGetSerializers
 from review.filters import ReviewFilters
+from review.utils import ReviewUtils
 from core.utils import CoreUtils
 from rest_framework.views import APIView
 from rest_framework import status
@@ -16,8 +17,27 @@ class ReviewView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = Review.objects.all()
-    filter_set_class = ReviewSerializers
-    serializer_class = ReviewFilters
+    filter_set_class = ReviewFilters
+    serializer_class = ReviewGetSerializers
+
+    
+    def post(self, request):
+        serializers = ReviewSerializers(data=request.data)
+
+        if not serializers.is_valid():
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        order = ReviewUtils(request)
+        response = order.create_review()
+
+        if not response[0]:
+            missing_models = response[1]
+            return Response(
+                {"Detail": "One or more relations not found", "Missing Models": missing_models},
+                status=status.HTTP_404_NOT_FOUND)
+            
+        serializer = self.serializer_class(response[1])
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
     def get(self, request):

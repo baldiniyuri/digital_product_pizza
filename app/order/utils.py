@@ -1,4 +1,4 @@
-from typing import Type, Tuple, Union
+from typing import Type, Tuple, Union, Dict
 from authentication.models import User
 from company.models import Company
 from pizza.models import Pizza
@@ -20,7 +20,7 @@ class OrderUtils:
         self.status = request.data["status"]
 
 
-    def filter_models(self):
+    def filter_models(self) -> Union[Dict[str, Union[int, str]], Tuple[User, Company, Pizza, Address]]:
         missing_models = {}
         try:
             user = self.user.objects.get(id=self.request.data["user_id"])
@@ -61,7 +61,7 @@ class OrderUtils:
         return False
 
 
-    def create_order(self):
+    def create_order(self) -> Tuple[bool, Union[Order, str]]:
         relation_objects = self.get_relation_objects()
         if isinstance(relation_objects, dict):
             missing_models = []
