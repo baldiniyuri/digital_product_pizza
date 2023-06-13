@@ -45,3 +45,10 @@ class CoreUtils:
         if User.objects.filter(Q(email=request.data['email']) | Q(cpf=request.data["cpf"])).exists():
             return True
         return False
+    
+
+    def check_superuser(self, user_id: int):
+        user = User.objects.get(id=user_id)
+        if user.is_superuser:
+            return True
+        return False

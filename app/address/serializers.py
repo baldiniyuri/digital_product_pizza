@@ -6,4 +6,5 @@ class AddressSerializers(serializers.Serializer):
     city = serializers.CharField()
     state = serializers.CharField()
     postal_code = serializers.CharField()
+    street_address = serializers.CharField()
     additional_instructions = serializers.CharField(required=False)

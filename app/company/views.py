@@ -60,7 +60,7 @@ class CompanyView(APIView):
         if CORE.check_user_token(request=request, user_id=user_id):
             queryset_filters = {
                 "id": {"pk": query},
-                "name": {"name": query},
+                "name": {"name__icontains": query},
                 "cnpj": {"cnpj": query},
                 "address": {"address__postal_code": query},
                 "contact_number": {"contact_number": query},
@@ -85,8 +85,8 @@ class CompanyView(APIView):
     
 
     def delete(self, request, company_id: int, user_id: int):
-        if CORE.check_user_token(request=request, user_id=user_id):
-            company = self.queryset.filter(id=company_id, user_id=user_id)
+        if CORE.check_user_token(request=request, user_id=user_id) and CORE.check_superuser(user_id=user_id):
+            company = self.queryset.filter(id=company_id)
 
             if company:
                 company.delete()

@@ -91,6 +91,7 @@ Response Http 201
     "id": 2,
     "city": "São Paulo",
     "state": "SP",
+    "street_address": "Rua",
     "postal_code": "20450100",
     "additional_instructions": null
   },
@@ -108,6 +109,56 @@ Response Http 201
 }
 
 ```
+
+# Get api/company/?<param>&<query>&<user_id>
+```
+Token required
+
+params = 'id','name', 'cnpj', 'address', 'contact_number', 'email', 'description', 'pizzas'
+
+Json
+
+Response Http 200
+[
+  {
+    "id": 1,
+    "name": "Pizza hut",
+    "cnpj": "1234256",
+    "address": {
+      "id": 2,
+      "city": "São Paulo",
+      "state": "SP",
+      "street_address": "Rua",
+      "postal_code": "20450100",
+      "additional_instructions": null
+    },
+    "contact_number": "11 50552020",
+    "email": "pizza@hut.com",
+    "description": "Best pizza in the world.",
+    "pizzas": [
+      {
+        "id": 1,
+        "flavor": "calabresa",
+        "second_flavor": null,
+        "is_two_flavors": false
+      }
+    ]
+  }
+]
+
+```
+
+# DELETE api/company/<int:company_id>/<int:user_id>/
+```
+Token required
+
+
+Response Http 204
+
+
+```
+
+
 
 
 ### Order
@@ -150,6 +201,7 @@ Response Http 201
       "id": 2,
       "city": "São Paulo",
       "state": "SP",
+      "street_address": "Rua",
       "postal_code": "20450100",
       "additional_instructions": null
     },
@@ -181,6 +233,74 @@ Response Http 201
     "additional_instructions": null
   }
 }
+
+```
+
+# Get api/order/?<param>&<query>&<user_id>
+```
+param = 'id', 'customer', 'company', 'pizzas', 'delivery_address', 'status'
+
+
+Token required
+Response Http 201
+[
+  {
+    "customer": {
+      "id": 1,
+      "name": "John Due",
+      "cpf": "1234567890",
+      "email": "test@testmail.com",
+      "phone": "123456789",
+      "address": {
+        "id": 1,
+        "city": "Taubaté",
+        "state": "SP",
+        "postal_code": "234555",
+        "additional_instructions": null
+      }
+    },
+    "company": {
+      "id": 1,
+      "name": "Pizza hut",
+      "cnpj": "1234256",
+      "address": {
+        "id": 2,
+        "city": "São Paulo",
+        "state": "SP",
+        "street_address": "rua",
+        "postal_code": "20450100",
+        "additional_instructions": null
+      },
+      "contact_number": "11 50552020",
+      "email": "pizza@hut.com",
+      "description": "Best pizza in the world.",
+      "pizzas": [
+        {
+          "id": 1,
+          "flavor": "calabresa",
+          "second_flavor": null,
+          "is_two_flavors": false
+        }
+      ]
+    },
+    "pizzas": [
+      {
+        "id": 1,
+        "flavor": "calabresa",
+        "second_flavor": null,
+        "is_two_flavors": false
+      }
+    ],
+    "delivery_address": {
+      "id": 1,
+      "city": "Taubaté",
+      "state": "SP",
+      "postal_code": "234555",
+      "additional_instructions": null
+    }
+  }
+]
+
 
 ```
 

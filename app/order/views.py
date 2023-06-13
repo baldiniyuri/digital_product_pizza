@@ -59,8 +59,7 @@ class OrderView(APIView):
                 "id": {"pk": query},
                 "customer": {"customer__name__icontains": query},
                 "company": {"company__cnpj": query},
-                "pizza": {"pizza": query},
-                "delivery_address": {"delivery_address": query},
+                "delivery_address": {"delivery_address__street_address": query},
                 "status": {"status": query}
             }
             
@@ -81,7 +80,7 @@ class OrderView(APIView):
 
     def delete(self, request, order_id: int, user_id: int):
         if CORE.check_user_token(request=request, user_id=user_id):
-            order = self.queryset.filter(id=order_id, user_id=user_id)
+            order = self.queryset.filter(id=order_id, customer_id=user_id)
 
             if order:
                 order.delete()
