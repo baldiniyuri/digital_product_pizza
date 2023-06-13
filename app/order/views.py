@@ -1,6 +1,6 @@
 from order.models import Order
 from order.serializers import OrderSerializers
-from order.filters import OrderFilters
+from order.filters import OrdersFilters
 from core.utils import CoreUtils
 from rest_framework.views import APIView
 from rest_framework import status
@@ -16,7 +16,7 @@ class OrderView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = Order.objects.all()
-    filter_set_class = OrderFilters
+    filter_set_class = OrdersFilters
     serializer_class = OrderSerializers
 
 

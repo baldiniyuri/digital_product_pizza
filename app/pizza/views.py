@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 CORE = CoreUtils()
 
 
-class CompanyView(APIView):
+class PizzaView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = Pizza.objects.all()

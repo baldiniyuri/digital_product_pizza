@@ -22,7 +22,12 @@ from django.conf import settings
 PATH = 'api/'
 
 urlpatterns = [
+    path(PATH, include('address.urls')), 
     path(PATH, include('authentication.urls')), 
+    path(PATH, include('company.urls')), 
+    path(PATH, include('order.urls')), 
+    path(PATH, include('pizza.urls')), 
+    path(PATH, include('review.urls')), 
 ]
 
 
