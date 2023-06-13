@@ -1,4 +1,6 @@
+from address.models import Address
 from company.models import Company
+from pizza.models import Pizza
 from company.serializers import CompanySerializers
 from company.filters import CompanyFilters
 from core.utils import CoreUtils
@@ -18,6 +20,32 @@ class CompanyView(APIView):
     queryset = Company.objects.all()
     filter_set_class = CompanyFilters
     serializer_class = CompanySerializers
+
+
+    def post(self, request):
+        serializers = self.serializer_class(data=request.data)
+
+        if not serializers.is_valid():
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        found_company = self.queryset.filter(cnpj=request.data["cnpj"])
+        
+        if found_company:
+            return Response(status=status.HTTP_208_ALREADY_REPORTED)
+        
+        address = request.data.pop("address")
+        pizzas = request.data.pop("pizzas")
+        address = Address.objects.create(**address)
+        company = self.queryset.create(address=address,**request.data)
+        
+        for p in pizzas:
+            pizza = Pizza.objects.create(**p)
+            company.pizzas.add(pizza)
+        company.save()
+
+        serializers = self.serializer_class(company)
+
+        return Response(serializers.data, status=status.HTTP_200_OK)
 
 
     def get(self, request):
