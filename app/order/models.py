@@ -8,7 +8,7 @@ from authentication.models import User
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
+    pizzas = models.ManyToManyField(Pizza)
     size = models.CharField(max_length=50)
     quantity = models.PositiveIntegerField()
     delivery_address = models.ForeignKey(Address, on_delete=models.CASCADE)
