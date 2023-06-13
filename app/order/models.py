@@ -1,11 +1,13 @@
 from django.db import models
 from pizza.models import Pizza
 from address.models import Address
+from company.models import Company
+from authentication.models import User
 
 
 class Order(models.Model):
-    customer_name = models.CharField(max_length=255)
-    contact_number = models.CharField(max_length=20)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
     size = models.CharField(max_length=50)
     quantity = models.PositiveIntegerField()

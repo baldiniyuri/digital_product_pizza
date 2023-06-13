@@ -54,12 +54,10 @@ INSTALLED_APPS = [
     'address',
     'authentication',
     'company',
-    'counties',
     'core',
     'order',
     'pizza',
-    'review',
-    'states'
+    'review'
 ]
 
 

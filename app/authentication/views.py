@@ -1,5 +1,6 @@
 from authentication.models import User
 from authentication.serializers import CredentialSerializer, UserSerializer
+from address.models import Address
 from core.utils import CoreUtils
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
@@ -24,7 +25,10 @@ class UserView(APIView):
         if CORE.check_user_exists(request):
             return Response(serializer.data, status=status.HTTP_409_CONFLICT)
         
-        user = User.objects.create_user(username=request.data['email'], **request.data)
+        address = request.data.pop("address")
+        address = Address.objects.create(**address)
+        
+        user = User.objects.create_user(address=address, username=request.data['email'], **request.data)
 
         serializer = UserSerializer(user)
 
@@ -43,7 +47,7 @@ class LoginView(APIView):
 
         if user is not None:
             token = Token.objects.get_or_create(user=user)[0]
-            return Response({'data': serializer.data, 'token': token.key}, status=status.HTTP_200_OK)
+            return Response({'token': token.key}, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
