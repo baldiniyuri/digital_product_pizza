@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'authentication',
     'company',
     'core',
+    'ingredients',
     'order',
     'pizza',
     'review'
