@@ -35,6 +35,7 @@ class PizzaView(APIView):
                 "flavor": {"flavor": query},
                 "second_flavor": {"second_flavor": query},
                 "is_two_flavors": {"is_two_flavors": query},
+                "ingredients": {"ingredients__ingredient_name__icontains": query}
             }
             
             found_address = None

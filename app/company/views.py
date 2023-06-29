@@ -67,6 +67,7 @@ class CompanyView(APIView):
                 "email": {"email": query},
                 "description": {"description__icontains": query},
                 "pizzas": {"pizzas__flavor__icontains": query},
+                "ingredients": {"pizzas__ingredients__ingredient_name__icontains": query}
             }
             
             found_address = None
