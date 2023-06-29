@@ -2,4 +2,4 @@ from django.db import models
 
 
 class Ingredients(models.Model):
-    ingredient = models.CharField(max_length=255)
+    ingredient_name = models.CharField(max_length=255)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ingredients.serializers import IngredientsSerializers
+from ingredients.serializers import IngredientsSerializers, IngredientsAddSerializers
 
 
 class PizzaSerializers(serializers.Serializer):
@@ -9,3 +9,10 @@ class PizzaSerializers(serializers.Serializer):
     is_two_flavors = serializers.BooleanField(required=False)
     is_custom = serializers.BooleanField(required=False)
     ingredients = IngredientsSerializers(many=True, required=False)
+
+
+
+class PizzaIngredients(serializers.Serializer):
+    pizza_id = serializers.IntegerField()
+    ingredient = IngredientsAddSerializers(many=True)
+    user_id = serializers.IntegerField(write_only=True)

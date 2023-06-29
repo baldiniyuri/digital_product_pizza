@@ -28,6 +28,7 @@ urlpatterns = [
     path(PATH, include('order.urls')), 
     path(PATH, include('pizza.urls')), 
     path(PATH, include('review.urls')), 
+    path(PATH, include('ingredients.urls')), 
 ]
 
 
